@@ -84,18 +84,18 @@ D5:							; Checks for divisibility by 5
 
 ; when %5 != 0 (not divisible)
 ISNOT5:
-	ST Z+, R14
-	ADD R18, R14
-	LDI R19, 0
-	INC R21
-	JMP check300second
+	ST Z+, R14				; Stores number
+	ADD R18, R14			; Simultaneously add number (LOW BITS)
+	LDI R19, 0				; We were told not to worry about overflow
+	INC R21					; Increment counter
+	JMP check300second		
 
 ; when %5 == 0 (divisible)
 IS5:
-	ST Y+, R14
-	ADD R16, R14
-	LDI R17, 0
-	INC R21
+	ST Y+, R14				; Stores number
+	ADD R16, R14			; Simultaneously add number (LOW BITS)
+	LDI R17, 0				; We were told not to worry about overflow
+	INC R21					; Increment counter
 	JMP check300second
 
 ; Increments higher bits
@@ -107,11 +107,11 @@ changeHighsecond:
 ; Checks if counter == 300
 check300second:
 	CPI R21, 0x00			; Check to increment high bit
-	BREQ changeHighsecond
+	BREQ changeHighsecond	; counter reaches 256
 	CP R24, R21				; Compare LOW(300) and R21
-	BRNE loader
+	BRNE loader				; loop back if R24 != R21
 	CP R23, R20				; Compare HIGH(300) and R20
-	BRNE loader
+	BRNE loader				; loop back if R23 != R20
 
 DONE:
-	NOP
+	NOP						; Program end
