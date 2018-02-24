@@ -29,9 +29,11 @@
   <loader><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm</FILE><LINE>71</LINE></loader>
   <D5><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm</FILE><LINE>76</LINE></D5>
   <ISNOT5><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm</FILE><LINE>86</LINE></ISNOT5>
-  <IS5><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm</FILE><LINE>94</LINE></IS5>
-  <check300second><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm</FILE><LINE>108</LINE></check300second>
-  <changeHighsecond><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm</FILE><LINE>102</LINE></changeHighsecond>
-  <DONE><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm</FILE><LINE>116</LINE></DONE>
+  <IS5><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm</FILE><LINE>101</LINE></IS5>
+  <oNot5><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm</FILE><LINE>95</LINE></oNot5>
+  <check300second><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm</FILE><LINE>122</LINE></check300second>
+  <oIs5><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm</FILE><LINE>110</LINE></oIs5>
+  <changeHighsecond><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm</FILE><LINE>116</LINE></changeHighsecond>
+  <DONE><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm</FILE><LINE>130</LINE></DONE>
  </LABELS>
 </ASSEMBLER_INFO>

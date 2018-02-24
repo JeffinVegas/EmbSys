@@ -25,24 +25,24 @@ start:
 	LDI	ZH, HIGH(0x0600)
 
 ; Declare variables
-	CLR	R16					; Stores total sum of numbers that are divisible by 5, set to 0
-	CLR	R17					; R16 overflow
-	CLR	R18					; Stores total sum of numbers that are not divisible by 5, set to 0
-	CLR	R19					; R18 overflow
+	CLR R17					; Stores total sum of numbers that are divisible by 5, set to 0
+	CLR R16					; R17 overflow (don't worry about overflow)
+	CLR R19					; Stores total sum of numbers that are not divisible by 5, set to 0
+	CLR R18					; R18 overflow (don't worry about overflow)
 
-	CLR	R20					; Counter register (HIGH), set to 0
-	CLR	R21					; Counter register (LOW), set to 0
-	LDI	R23, HIGH(300)		; Immediate value 300 H (0x01), count checker
+	CLR R20					; Counter register (HIGH), set to 0
+	CLR R21					; Counter register (LOW), set to 0
+	LDI R23, HIGH(300)		; Immediate value 300 H (0x01), count checker
 	LDI R24, LOW(300)		; Immediate value 300 L (0x2c), count checker
 
-	CLR R22					; R26 = 0
-	LDI R22, LOW(0x0222)	; R26 = 0x22
-	ADD R25, R22			; R25 = R25 + R26
-	LDI R22, HIGH(0x0222)	; R26 = 0x02
+	CLR R22					; R22 = 0
+	LDI R22, LOW(0x0222)	; R22 = 0x22
+	ADD R25, R22			; R25 = R25 + R22
+	LDI R22, HIGH(0x0222)	; R22 = 0x02
 
 ; Populate and store 300 numbers
 popLOOP:
-	ADD R25, R22			; R25 += R26
+	ADD R25, R22			; R25 += R22
 	ST X+, R25				; Store number
 	INC R21					; increment counter (low)
 	JMP check300first
@@ -75,7 +75,7 @@ loader:
 ; checks if %5=0
 D5:							; Checks for divisibility by 5
 	CP R15, R22				; Compare R15 and R22 (5)
-	BRLO ISNOT5				; Go to ISNOT5 back if R15 => R22
+	BRLO ISNOT5				; Go to ISNOT5 back if R15 < R22
 	CP	R15, R22			; Compare R15 and R22 (5)
 	BREQ IS5				; Go to IS5 if R15 == R22
 	SUB	R15, R22			; R15 = R15 - 5
@@ -85,18 +85,32 @@ D5:							; Checks for divisibility by 5
 ; when %5 != 0 (not divisible)
 ISNOT5:
 	ST Z+, R14				; Stores number
-	ADD R18, R14			; Simultaneously add number (LOW BITS)
-	LDI R19, 0				; We were told not to worry about overflow
+	MOV R13, R14			; Copies stored number
+	ADD R19, R14			; Simultaneously add number (LOW BITS)
+	CP R19, R13				; Compare LOW BIT with loaded number
+	BRLO oNot5				; goes to oIs5 if R19 < R13
+	INC R21					; Increment counter
+	JMP check300second
+
+oNot5:
+	INC R18					; Increment HIGH BIT
 	INC R21					; Increment counter
 	JMP check300second		
 
 ; when %5 == 0 (divisible)
 IS5:
 	ST Y+, R14				; Stores number
-	ADD R16, R14			; Simultaneously add number (LOW BITS)
-	LDI R17, 0				; We were told not to worry about overflow
+	MOV R13, R14			; Copies stored number
+	ADD R17, R14			; Simultaneously add number (LOW BITS)
+	CP R17, R13				; Compare LOW BIT with loaded number
+	BRLO oIs5				; goes to oIs5 if R17 < R13
 	INC R21					; Increment counter
 	JMP check300second
+
+oIs5:
+	INC R16					; Increment HIGH BIT
+	INC R21					; Increment counter
+	JMP check300second		
 
 ; Increments higher bits
 changeHighsecond:

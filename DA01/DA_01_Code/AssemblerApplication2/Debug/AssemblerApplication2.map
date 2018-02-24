@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm Thu Feb 22 20:30:31 2018
+AVRASM ver. 2.2.7  C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm Sat Feb 24 12:29:40 2018
 
 
 EQU  SIGNATURE_000 0000001e
@@ -702,7 +702,9 @@ CSEG changeHighfirst 00000017
 CSEG loader       00000025
 CSEG D5           00000027
 CSEG ISNOT5       0000002e
-CSEG IS5          00000034
-CSEG check300second 0000003e
-CSEG changeHighsecond 0000003a
-CSEG DONE         00000044
+CSEG IS5          0000003a
+CSEG oNot5        00000036
+CSEG check300second 0000004a
+CSEG oIs5         00000042
+CSEG changeHighsecond 00000046
+CSEG DONE         00000050
