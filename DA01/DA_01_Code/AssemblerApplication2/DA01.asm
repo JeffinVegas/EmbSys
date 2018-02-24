@@ -69,8 +69,8 @@ check300first:
 
 ; Loads next number number in stack
 loader:
-	LD R15,	-X				; Load number to R20 downwards the stack
-	MOV	R14, R15			; Moves value in R16 to check if divisible by 5
+	LD R15,	-X				; Load number to R15 downwards the stack
+	MOV	R14, R15			; Moves value in R14 to check if divisible by 5
 
 ; checks if %5=0
 D5:							; Checks for divisibility by 5

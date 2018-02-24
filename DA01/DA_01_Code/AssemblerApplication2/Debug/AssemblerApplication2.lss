@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm Sat Feb 24 12:29:40 2018
+AVRASM ver. 2.2.7  C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerApplication2\DA01.asm Sat Feb 24 12:42:51 2018
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
@@ -1011,14 +1011,14 @@ AVRASM ver. 2.2.7  C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerAp
 000005 e0f6                      	LDI	ZH, HIGH(0x0600)
                                  
                                  ; Declare variables
-000006 2711                      	CLR	R17					; Stores total sum of numbers that are divisible by 5, set to 0
-000007 2700                      	CLR	R16					; R17 overflow (don't worry about overflow)
-000008 2733                      	CLR	R19					; Stores total sum of numbers that are not divisible by 5, set to 0
-000009 2722                      	CLR	R18					; R18 overflow (don't worry about overflow)
+000006 2711                      	CLR R17					; Stores total sum of numbers that are divisible by 5, set to 0
+000007 2700                      	CLR R16					; R17 overflow (don't worry about overflow)
+000008 2733                      	CLR R19					; Stores total sum of numbers that are not divisible by 5, set to 0
+000009 2722                      	CLR R18					; R18 overflow (don't worry about overflow)
                                  
-00000a 2744                      	CLR	R20					; Counter register (HIGH), set to 0
-00000b 2755                      	CLR	R21					; Counter register (LOW), set to 0
-00000c e071                      	LDI	R23, HIGH(300)		; Immediate value 300 H (0x01), count checker
+00000a 2744                      	CLR R20					; Counter register (HIGH), set to 0
+00000b 2755                      	CLR R21					; Counter register (LOW), set to 0
+00000c e071                      	LDI R23, HIGH(300)		; Immediate value 300 H (0x01), count checker
 00000d e28c                      	LDI R24, LOW(300)		; Immediate value 300 L (0x2c), count checker
                                  
 00000e 2766                      	CLR R22					; R22 = 0
@@ -1055,8 +1055,8 @@ AVRASM ver. 2.2.7  C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA_01\AssemblerAp
                                  
                                  ; Loads next number number in stack
                                  loader:
-000025 90fe                      	LD R15,	-X				; Load number to R20 downwards the stack
-000026 2cef                      	MOV	R14, R15			; Moves value in R16 to check if divisible by 5
+000025 90fe                      	LD R15,	-X				; Load number to R15 downwards the stack
+000026 2cef                      	MOV	R14, R15			; Moves value in R14 to check if divisible by 5
                                  
                                  ; checks if %5=0
                                  D5:							; Checks for divisibility by 5
