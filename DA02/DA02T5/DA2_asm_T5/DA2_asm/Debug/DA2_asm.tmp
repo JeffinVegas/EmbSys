@@ -1,0 +1,42 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.7</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\M328pDEF.INC</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\Debug\DA2_asm.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>DA2_asm.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>DA2_asm.map</FILE>
+  <FILE>DA2_asm.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <main><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>8</LINE></main>
+  <INT0_v><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>58</LINE></INT0_v>
+  <button><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>23</LINE></button>
+  <begin><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>27</LINE></begin>
+  <delay><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>32</LINE></delay>
+  <HIGHINC><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>42</LINE></HIGHINC>
+  <cont><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>37</LINE></cont>
+  <body><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>48</LINE></body>
+  <done><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>52</LINE></done>
+  <begin2><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>59</LINE></begin2>
+  <delay2><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>65</LINE></delay2>
+  <HIGHINC2><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>75</LINE></HIGHINC2>
+  <cont2><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>70</LINE></cont2>
+  <body2><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>81</LINE></body2>
+  <done2><FILE>C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T5\DA2_asm\main.asm</FILE><LINE>85</LINE></done2>
+ </LABELS>
+</ASSEMBLER_INFO>

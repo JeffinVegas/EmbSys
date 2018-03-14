@@ -1,10 +1,10 @@
 
-AVRASM ver. 2.2.7  C:\Users\Jeffrey\Documents\GitHubOther\EmbSys\DA01\DA_01_Code\AssemblerApplication2\DA01.asm Sun Feb 25 23:34:51 2018
+AVRASM ver. 2.2.7  C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T1\DA2_asm\main.asm Wed Mar 14 11:09:15 2018
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
                                  
-                                 ;razonj1
+                                 .org 0
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega328P.xml **********
                                  ;*************************************************************************
@@ -985,135 +985,35 @@ AVRASM ver. 2.2.7  C:\Users\Jeffrey\Documents\GitHubOther\EmbSys\DA01\DA_01_Code
                                  
                                  ; ***** END OF FILE ******************************************************
                                  
-                                 ;1. Store 300 numbers starting from the STARTADDS=0x0222 location. Populate the value
-                                 ;of the memory location by adding high(STARTADDS) and low(STARTADDS) . Use the X/
-                                 ;Y/Z registers as pointers to fill up 300 numbers.
                                  
-                                 ;2. Use X/Y/Z register addressing to parse through the 300 numbers, if the number is
-                                 ;divisible by 5 store the number starting from memory location 0x0400, else store at
-                                 ;location starting at 0x0600.
+000000 e004                      	LDI R16, 4
+000001 9a22                      	SBI DDRB, 2 ;PC2 as output
+000002 e010                      	LDI R17,0  ;needed to toggle led
                                  
-                                 ;3. Use X/Y/Z register addressing to simultaneously add numbers from memory location
-                                 ;0x0400 and 0x0600 and store the sums at R16:R17 and R18:R19 respectively. Do not
-                                 ;worry about the overflow.
+000003 b915                      	OUT PORTB,R17
+000004 e045                      	LDI R20,5 ;to set prescaler
+000005 9340 0081                 	STS TCCR1B,R20 ;Prescaler: 1024
                                  
-                                 ;4. Verify your algorithm and answers using C programming.
-                                 
-                                 ;5. Determine the execution time @ 16MHz/#cycles of your algorithm using the simulation.
-                                 
-                                 start:
-                                 ; Declare POINTERS
-000000 e2a2                      	LDI	XL, LOW(0x0222)
-000001 e0b2                      	LDI	XH, HIGH(0x0222)
-000002 e0c0                      	LDI	YL, LOW(0x0400)
-000003 e0d4                      	LDI	YH, HIGH(0x0400)
-000004 e0e0                      	LDI	ZL, LOW(0x0600)
-000005 e0f6                      	LDI	ZH, HIGH(0x0600)
-                                 
-                                 ; Declare variables
-000006 2711                      	CLR R17					; Stores total sum of numbers that are divisible by 5, set to 0
-000007 2700                      	CLR R16					; R17 overflow (don't worry about overflow)
-000008 2733                      	CLR R19					; Stores total sum of numbers that are not divisible by 5, set to 0
-000009 2722                      	CLR R18					; R18 overflow (don't worry about overflow)
-                                 
-00000a 2744                      	CLR R20					; Counter register (HIGH), set to 0
-00000b 2755                      	CLR R21					; Counter register (LOW), set to 0
-00000c e071                      	LDI R23, HIGH(300)		; Immediate value 300 H (0x01), count checker
-00000d e28c                      	LDI R24, LOW(300)		; Immediate value 300 L (0x2c), count checker
-                                 
-00000e 2766                      	CLR R22					; R22 = 0
-00000f e262                      	LDI R22, LOW(0x0222)	; R22 = 0x22
-000010 0f96                      	ADD R25, R22			; R25 = R25 + R22
-000011 e062                      	LDI R22, HIGH(0x0222)	; R22 = 0x02
-                                 
-                                 ; Populate and store 300 numbers
-                                 popLOOP:
-000012 0f96                      	ADD R25, R22			; R25 += R22
-000013 939d                      	ST X+, R25				; Store number
-000014 9553                      	INC R21					; increment counter (low)
-000015 940c 001b                 	JMP check300first
-                                 
-                                 ; Increment higher bits	
-                                 changeHighfirst:
-000017 9543                      	INC R20					; increment higher bit
-000018 2755                      	CLR R21					; restarts lower bits
-000019 940c 0012                 	JMP popLOOP
-                                 
-                                 ; Checks if counter == 300
-                                 check300first:
-00001b 3050                      	CPI R21, 0x00			; Check to increment high bit
-00001c f3d1                      	BREQ changeHighfirst
-00001d 1785                      	CP R24, R21				; Compare LOW(300) and R21
-00001e f799                      	BRNE popLOOP
-00001f 1774                      	CP R23, R20				; Compare HIGH(300) and R20
-000020 f789                      	BRNE popLOOP
-                                 
-000021 2744                      	CLR R20					; clear counter(high)
-000022 2755                      	CLR R21					; clear counter(low)
-000023 2766                      	CLR R22					; clear R22
-000024 e065                      	LDI R22, 0x05			; load a 5 to check if divisible
-                                 
-                                 ; Loads next number number in stack
-                                 loader:
-000025 90fe                      	LD R15,	-X				; Load number to R15 downwards the stack
-000026 2cef                      	MOV	R14, R15			; Moves value in R14 to check if divisible by 5
-                                 
-                                 ; checks if %5=0
-                                 D5:							; Checks for divisibility by 5
-000027 16f6                      	CP R15, R22				; Compare R15 and R22 (5)
-000028 f028                      	BRLO ISNOT5				; Go to ISNOT5 back if R15 < R22
-000029 16f6                      	CP	R15, R22			; Compare R15 and R22 (5)
-00002a f079                      	BREQ IS5				; Go to IS5 if R15 == R22
-00002b 1af6                      	SUB	R15, R22			; R15 = R15 - 5
-00002c 16f6                      	CP R15, R22				; Compare R15 and R22 again
-00002d f7c8                      	BRSH D5					; Loop back if R15 => R22
-                                 
-                                 ; when %5 != 0 (not divisible)
-                                 ISNOT5:
-00002e 92e1                      	ST Z+, R14				; Stores number
-00002f 2cde                      	MOV R13, R14			; Copies stored number
-000030 0d3e                      	ADD R19, R14			; Simultaneously add number (LOW BITS)
-000031 153d                      	CP R19, R13				; Compare LOW BIT with loaded number
-000032 f018                      	BRLO oNot5				; goes to oIs5 if R19 < R13
-000033 9553                      	INC R21					; Increment counter
-000034 940c 004a                 	JMP check300second
-                                 
-                                 oNot5:
-000036 9523                      	INC R18					; Increment HIGH BIT
-000037 9553                      	INC R21					; Increment counter
-000038 940c 004a                 	JMP check300second		
-                                 
-                                 ; when %5 == 0 (divisible)
-                                 IS5:
-00003a 92e9                      	ST Y+, R14				; Stores number
-00003b 2cde                      	MOV R13, R14			; Copies stored number
-00003c 0d1e                      	ADD R17, R14			; Simultaneously add number (LOW BITS)
-00003d 151d                      	CP R17, R13				; Compare LOW BIT with loaded number
-00003e f018                      	BRLO oIs5				; goes to oIs5 if R17 < R13
-00003f 9553                      	INC R21					; Increment counter
-000040 940c 004a                 	JMP check300second
-                                 
-                                 oIs5:
-000042 9503                      	INC R16					; Increment HIGH BIT
-000043 9553                      	INC R21					; Increment counter
-000044 940c 004a                 	JMP check300second		
-                                 
-                                 ; Increments higher bits
-                                 changeHighsecond:
-000046 9543                      	INC R20					; increment higher bit
-000047 2755                      	CLR R21					; restarts lower bits
-000048 940c 0025                 	JMP loader
-                                 
-                                 ; Checks if counter == 300
-                                 check300second:
-00004a 3050                      	CPI R21, 0x00			; Check to increment high bit
-00004b f3d1                      	BREQ changeHighsecond	; counter reaches 256
-00004c 1785                      	CP R24, R21				; Compare LOW(300) and R21
-00004d f6b9                      	BRNE loader				; loop back if R24 != R21
-00004e 1774                      	CP R23, R20				; Compare HIGH(300) and R20
-00004f f6a9                      	BRNE loader				; loop back if R23 != R20
-                                 
-                                 DONE:
+                                 begin:
+000007 d003                      	RCALL delay ;calling timer to wait for 0.25 sec
+000008 2710                      	EOR R17,R16 ;XOR to toogle led
+000009 b915                      	OUT PORTB,R17
+00000a cffc                      	RJMP begin ;repeating i.e, while(1)
+                                 delay:
+00000b 91d0 0085                 	LDS R29, TCNT1H ;loading upper bit of counter to R29
+00000d 91c0 0084                 	LDS R28, TCNT1L ;loading lower bit of counter to R28
+00000f 3ac1                      	CPI R28, 0xA1 ;comparing if lower is 0xA1
+000010 f408                      	BRSH body
+000011 cff9                      	RJMP delay
+                                 body:
+000012 30d7                      	CPI R29,0x07 ;comparing if higher is 0x07
+000013 f408                      	BRSH done
+000014 cff6                      	RJMP delay
+                                 done:
+000015 e040                      	LDI R20,0x00
+000016 9340 0085                 	STS TCNT1H,R20 ;resetting the counter to 0 for next round
+000018 e040                      	LDI R20,0x00
+000019 9340 0084                 	STS TCNT1L,R20 ;resetting the counter to 0 for next round
 
 
 RESOURCE USE INFORMATION
@@ -1131,39 +1031,39 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega328P" register use summary:
-x  :   2 y  :   1 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
+x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   4 r14:   7 r15:   6 r16:   2 r17:   3 r18:   2 r19:   3 r20:   6 
-r21:  13 r22:  11 r23:   3 r24:   3 r25:   3 r26:   1 r27:   1 r28:   1 
-r29:   1 r30:   1 r31:   1 
-Registers used: 22 out of 35 (62.9%)
+r13:   0 r14:   0 r15:   0 r16:   2 r17:   4 r18:   0 r19:   0 r20:   6 
+r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   2 
+r29:   2 r30:   0 r31:   0 
+Registers used: 5 out of 35 (14.3%)
 
 "ATmega328P" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   0 add   :   4 adiw  :   0 and   :   0 
+.lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   3 brge  :   0 brhc  :   0 
-brhs  :   0 brid  :   0 brie  :   0 brlo  :   3 brlt  :   0 brmi  :   0 
-brne  :   4 brpl  :   0 brsh  :   1 brtc  :   0 brts  :   0 brvc  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
+brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
+brne  :   0 brpl  :   0 brsh  :   2 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :  12 cls   :   0 
-clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   9 cpc   :   0 
-cpi   :   2 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   9 jmp   :   7 
-ld    :   1 ldd   :   0 ldi   :  11 lds   :   0 lpm   :   0 lsl   :   0 
-lsr   :   0 mov   :   3 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   1 or    :   0 ori   :   0 out   :   0 pop   :   0 
-push  :   0 rcall :   0 ret   :   0 reti  :   0 rjmp  :   0 rol   :   0 
-ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
+clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
+clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
+cpi   :   2 cpse  :   0 dec   :   0 eor   :   1 fmul  :   0 fmuls :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   0 
+ld    :   0 ldd   :   0 ldi   :   5 lds   :   2 lpm   :   0 lsl   :   0 
+lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   2 pop   :   0 
+push  :   0 rcall :   1 ret   :   1 reti  :   0 rjmp  :   3 rol   :   0 
+ror   :   0 sbc   :   0 sbci  :   0 sbi   :   1 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   3 std   :   0 sts   :   0 
-sub   :   1 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 16 out of 113 (14.2%)
+sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   3 
+sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
+Instructions used: 11 out of 113 (9.7%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000a2    162      0    162   32768   0.5%
+[.cseg] 0x000000 0x000038     56      0     56   32768   0.2%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

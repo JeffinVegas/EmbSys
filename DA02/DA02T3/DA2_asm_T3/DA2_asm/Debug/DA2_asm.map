@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Jeffrey\Documents\GitHubOther\EmbSys\DA01\DA_01_Code\AssemblerApplication2\DA01.asm Sun Feb 25 23:34:51 2018
+AVRASM ver. 2.2.7  C:\Users\Jeffrey\Documents\Atmel Studio\7.0\DA2_asm_T3\DA2_asm\main.asm Wed Mar 14 11:05:36 2018
 
 
 EQU  SIGNATURE_000 0000001e
@@ -695,16 +695,9 @@ EQU  ACIaddr      0000002e
 EQU  TWIaddr      00000030
 EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
-CSEG start        00000000
-CSEG popLOOP      00000012
-CSEG check300first 0000001b
-CSEG changeHighfirst 00000017
-CSEG loader       00000025
-CSEG D5           00000027
-CSEG ISNOT5       0000002e
-CSEG IS5          0000003a
-CSEG oNot5        00000036
-CSEG check300second 0000004a
-CSEG oIs5         00000042
-CSEG changeHighsecond 00000046
-CSEG DONE         00000050
+CSEG begin        00000008
+CSEG delay        0000000c
+CSEG HIGHINC      00000012
+CSEG cont         0000000f
+CSEG body         00000016
+CSEG done         00000019
