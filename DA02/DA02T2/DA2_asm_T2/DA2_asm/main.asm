@@ -17,9 +17,11 @@ button:
 	RJMP button ;loop back to prompt for button
 
 begin:
-	RCALL delay ;calling timer to wait for 1 sec
 	EOR R17,R16 ;XOR to toogle led
 	OUT PORTB,R17 ;display LED
+	RCALL delay ;calling timer to wait for 1 sec
+	EOR R17,R16 ;XOR to toogle led
+	OUT PORTB,R17 ;redisplay LED
 	RJMP button ;jump to prompt for button again
 delay:
 	IN R28, TCNT0 ;loading lower bit of counter to R28
@@ -46,4 +48,3 @@ done:
 	LDI R20, 0
 	OUT TCNT0,R20 ;resetting the counter to 0 for next round
 	RET
-

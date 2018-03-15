@@ -31,9 +31,9 @@ int main(void)
 		short pressed = checkButton(); // branch to
 		if(pressed) // if button is pressed,
 		{
-			_delay_ms(900); // 0.9 sec delay
-			// (0.9 sec + 0.1 sec makes 1 sec delay)
-			LEDPORT ^= (1 << LED_PIN);	// turn LED on
+			LEDPORT |= (1 << LED_PIN);	// turn LED on
+			_delay_ms(1000); // 1 sec delay	
+			LEDPORT &= ~(1 << LED_PIN); // turn LED back off	
 		}
 	}
 }
@@ -42,14 +42,14 @@ short checkButton()
 {
 	short count = 0; // counter
 	
-	while(!(BUTTONPIN & (1 << BUTTON_PIN)) && // check if button is stayed being pressed
-			count < 20)
+	while(!(BUTTONPIN & (1 << BUTTON_PIN)) && // check if button is stayed press
+			count < 10) //for 0.1 sec
 	{
 		// counter to make sure button is being pressed for 0.1 sec
 		count++;
 		_delay_ms(5);
 	}
 	
-	return (count == 20);
+	return (count == 10);
 	// return true if button has been held for 0.1 sec
 }
