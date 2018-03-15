@@ -68,7 +68,7 @@ delay2:
 	BREQ HIGHINC2 ;jump to increment overflow count
 
 cont2:
-	CPI R28, 0x84 ;comparing if timer is 0xB6
+	CPI R28, 0x84 ;comparing if timer is 0x84
 	BREQ body2 ;if equal, check for OVF_count
 	RJMP delay2 ;if not, loop back
 
