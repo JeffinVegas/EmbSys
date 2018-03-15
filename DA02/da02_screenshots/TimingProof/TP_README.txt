@@ -1,5 +1,7 @@
 Brief Explanations about each photo:
 
+Each photo shows proof of the correct period. Tasks 1, 3, 4, and 5 are supposed to have a period of 0.5 seconds, which means the light should toggle on/off every 0.25 seconds.
+
 ASM_T1: A breakpoint was placed after the 0.25 second delay, right before the LED light toggles. The stop watch shows approximately 249.99K microseconds, which is about 0.25 seconds.
 
 ASM_T2: A breakpoint was placed after the 1 second delay, right before the LED light toggles. The stop watch shows approximately 999.68K microseconds, which is about 1 second. The code was modified as if the button was immediately pushed.
