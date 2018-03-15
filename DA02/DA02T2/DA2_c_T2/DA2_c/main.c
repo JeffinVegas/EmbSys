@@ -42,7 +42,7 @@ short checkButton()
 {
 	short count = 0; // counter
 	
-	while(!(BUTTONPIN & (1 << BUTTON_PIN)) && // check if button is stayed 
+	while(!(BUTTONPIN & (1 << BUTTON_PIN)) && // check if button is stayed being pressed
 			count < 20)
 	{
 		// counter to make sure button is being pressed for 0.1 sec
