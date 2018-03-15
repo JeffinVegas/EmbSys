@@ -57,10 +57,12 @@ done:
 
 INT0_v:
 begin2:
-	LDI R20, (1 << INTF0)
-	OUT EIFR, R20 ;clear flag
+	LDI R22, (1 << INTF0)
+	OUT EIFR, R22 ;clear flag
 	SBI PORTB, 2 ;turn LED light on
 	RCALL delay2 ;delay function
+	LDI	R22, 5 ;Timer0: enabled, prescaler = 1024
+	OUT	TCCR0B,	R22 ; prescaler = 1024
 	RETI ;return from interrupt, interrupts enabled	
 delay2:
 	IN R28, TCNT0 ;loading timer0 to R28
@@ -73,17 +75,17 @@ cont2:
 	RJMP delay2 ;if not, loop back
 
 HIGHINC2:
-	INC R21 ;increment overflow count
-	LDI R20, 0 
-	OUT TCNT0, R20 ;reset TCNT
+	INC R23 ;increment overflow count
+	LDI R22, 0 
+	OUT TCNT0, R22 ;reset TCNT
 	RJMP cont2 ;loop back to check timer bits
 
 body2:
-	CPI R21,0x1E ;comparing if OVF_count is 0x1E
+	CPI R23,0x1E ;comparing if OVF_count is 0x1E
 	BRSH done2 ;if equal, branch to "done2"
 	RJMP delay2 ;if not, loop back
 done2:
-	LDI R21, 0 ;reset overflow count
-	LDI R20, 0
-	OUT TCNT0,R20 ;resetting the counter to 0 for next round
+	LDI R23, 0 ;reset overflow count
+	LDI R22, 0
+	OUT TCNT0,R22 ;resetting the counter to 0 for next round
 	RET
