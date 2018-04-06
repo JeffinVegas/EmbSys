@@ -21,6 +21,8 @@ int main( void )
 	ADCSRA |= (1 << ADIE); // Enable Interrupts
 	ADCSRA |= (1 << ADSC); // Start the ADC conversion
 	
+	initUart();
+	
 	//timer interrupt initialization	
 	TCNT1 = 49911; //timer1 number to make 1 sec delay per reading
 	TCCR1A = 0; //normal mode
